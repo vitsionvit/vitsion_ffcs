@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 
 export default function StudentsViewPage() {
-  const [students, setStudents] = useState<Partial<Student>[]>([]);
+  const [students, setStudents] = useState<Student[]>([]);
   const { error, setError } = useError() as ErrorContextType;
   useEffect(() => {
     StudentsService.getAllStudents()

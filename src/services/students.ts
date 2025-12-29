@@ -12,17 +12,13 @@ import {
 export class StudentsService {
   static studentsCollection = firebaseCollection(db, Collections.STUDENTS);
 
-  static async getAllStudents(): Promise<Partial<Student>[]> {
+  static async getAllStudents(): Promise<Student[]> {
     try {
       const res = (
-        await getDocs(
-          query(this.studentsCollection, orderBy("hours", "desc"))
-        )
+        await getDocs(query(this.studentsCollection, orderBy("hours", "desc")))
       ).docs;
       return res.map((doc) => {
-        const { id, name, registrationNumber, hours } =
-          doc.data() as Partial<Student>;
-        return { id, name, registrationNumber, hours };
+        return doc.data() as Student;
       });
     } catch {
       throw "Could not fetch students list";

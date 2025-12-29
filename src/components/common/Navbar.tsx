@@ -1,13 +1,15 @@
-import {
-  useAlert,
-  type AlertContextType,
-} from "@/context/AlertContext";
+import { useAlert, type AlertContextType } from "@/context/AlertContext";
 import { useAuth, type AuthContextType } from "@/context/AuthContext";
 import { useLoader, type LoaderContextType } from "@/context/LoaderContext";
 import { formatName } from "@/lib/formatName";
 import { AlertType, Role, type User } from "@/lib/types";
 import { AuthService } from "@/services/auth";
-import { UserIcon, LogOutIcon, LayoutDashboardIcon, KeyIcon } from "lucide-react";
+import {
+  UserIcon,
+  LogOutIcon,
+  LayoutDashboardIcon,
+  KeyIcon,
+} from "lucide-react";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -41,7 +43,11 @@ function Navbar() {
       <div className="px-6 py-3">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center gap-3 group">
-            <img src="/vitsion-logo.png" alt="VITSION" className="h-10 w-auto object-contain group-hover:scale-105 transition-transform duration-300 mix-blend-screen" />
+            <img
+              src="/vitsion-logo.png"
+              alt="VITSION"
+              className="h-10 w-auto object-contain group-hover:scale-105 transition-transform duration-300 mix-blend-screen"
+            />
             <span className="text-lg font-bold text-white tracking-tight group-hover:text-gray-300 transition-colors">
               VITSION FFCS
             </span>
@@ -58,7 +64,7 @@ function Navbar() {
                 <UserIcon className="h-4 w-4" />
               </div>
               <span className="text-sm font-medium text-gray-200 group-hover:text-white hidden sm:block">
-                {user ? "Account" : "Menu"}
+                {user ? user.name : "Menu"}
               </span>
             </button>
 
@@ -79,7 +85,9 @@ function Navbar() {
                     {user ? (
                       <>
                         <div className="px-4 py-3 border-b border-slate-100 mb-2">
-                          <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Signed in as</p>
+                          <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">
+                            Signed in as
+                          </p>
                           <p className="text-sm font-bold text-slate-900 truncate">
                             {formatName(user.name)}
                           </p>

@@ -1,10 +1,16 @@
 import { type Student } from "@/lib/types";
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { SearchIcon, ChevronRightIcon, UserIcon } from "lucide-react";
+import {
+  SearchIcon,
+  ChevronRightIcon,
+  UserIcon,
+  DownloadIcon,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { generateCompleteReport } from "@/lib/report";
 
-function StudentsTable({ students }: { students: Partial<Student>[] }) {
+function StudentsTable({ students }: { students: Student[] }) {
   const [query, setQuery] = useState("");
 
   const navigate = useNavigate();
@@ -20,6 +26,12 @@ function StudentsTable({ students }: { students: Partial<Student>[] }) {
     );
   }, [query, students]);
 
+  const handleDownloadReport = () => {
+    console.log("flag");
+
+    generateCompleteReport(students);
+  };
+
   return (
     <div className="bg-[#121212] rounded-[2rem] shadow-2xl border border-white/10 overflow-hidden">
       <div className="p-6 border-b border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -30,6 +42,13 @@ function StudentsTable({ students }: { students: Partial<Student>[] }) {
           <p className="text-sm text-gray-400 mt-1">
             View and manage student hours
           </p>
+          <button
+            onClick={handleDownloadReport}
+            className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold text-white border border-white/10 transition-colors"
+          >
+            <DownloadIcon className="w-4 h-4" />
+            Download report
+          </button>
         </div>
         <div className="relative w-full sm:w-72">
           <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
@@ -80,7 +99,9 @@ function StudentsTable({ students }: { students: Partial<Student>[] }) {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.05 }}
                   onClick={() => {
-                    navigate(`/dashboard/student/${student.registrationNumber}`);
+                    navigate(
+                      `/dashboard/student/${student.registrationNumber}`
+                    );
                   }}
                   className="group hover:bg-white/5 transition-colors cursor-pointer"
                 >
@@ -113,9 +134,7 @@ function StudentsTable({ students }: { students: Partial<Student>[] }) {
         {filtered.length === 0 && (
           <div className="p-12 text-center text-gray-500">
             <UserIcon className="w-12 h-12 mx-auto text-gray-600 mb-3" />
-            <p className="text-lg font-medium text-white">
-              No students found
-            </p>
+            <p className="text-lg font-medium text-white">No students found</p>
             <p className="text-sm">Try adjusting your search query</p>
           </div>
         )}
