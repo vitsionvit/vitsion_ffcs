@@ -1,14 +1,7 @@
 import type { HourRequest } from "@/lib/types";
 import { ClockIcon, CalendarIcon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-
-const formatDate = (date: string) => {
-  return new Date(date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-};
+import { formatDate } from "@/lib/formatDate";
 
 export default function WorkHistoryTable({ data }: { data: HourRequest[] }) {
   if (data.length === 0) {

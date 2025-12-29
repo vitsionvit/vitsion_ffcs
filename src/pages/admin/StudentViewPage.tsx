@@ -1,10 +1,12 @@
 import { StaticLoader } from "@/components/common/Loader";
 import WorkHistoryTable from "@/components/student/WorkHistoryTable";
 import { useError, type ErrorContextType } from "@/context/ErrorContext";
+import { generateIndividualReport } from "@/lib/report";
 import type { HourRequest, Student } from "@/lib/types";
 import { RequestsService } from "@/services/requests";
 import { StudentsService } from "@/services/students";
-import { useEffect, useState } from "react";
+import { DownloadIcon } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 
 function StudentViewPage() {
@@ -13,6 +15,7 @@ function StudentViewPage() {
   const [student, setStudent] = useState<Student | undefined>();
   const [hourRequests, setHourRequests] = useState<HourRequest[]>([]);
   const [loading, setLoading] = useState(true);
+  const contentRef = useRef(null);
 
   useEffect(() => {
     // setLoading(true);
@@ -27,6 +30,9 @@ function StudentViewPage() {
       .finally(() => setLoading(false));
   }, [id, setError]);
 
+  const handleDownloadReport = () => {
+    generateIndividualReport(student!, hourRequests);
+  };
   if (error) return <Navigate to={"/error"} replace />;
   if (loading || student == null) return <StaticLoader isVisible />;
 
@@ -39,13 +45,25 @@ function StudentViewPage() {
   // }
 
   return (
-    <div className="p-4 md:p-8 lg:p-12 min-h-screen bg-[#0a0a0a]">
+    <div
+      className="p-4 md:p-8 lg:p-12 min-h-screen bg-[#0a0a0a]"
+      ref={contentRef}
+    >
       <div className="bg-[#121212] p-8 sm:p-10 rounded-[2.5rem] shadow-2xl border border-white/10">
         <div className="border-b border-white/5 pb-6 mb-8">
-          <h2 className="text-3xl font-black text-white tracking-tight">{student!.name}</h2>
+          <h2 className="text-3xl font-black text-white tracking-tight">
+            {student!.name}
+          </h2>
           <p className="text-gray-400 mt-1">
             Registration No: {student!.registrationNumber}
           </p>
+          <button
+            onClick={handleDownloadReport}
+            className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold text-white border border-white/10 transition-colors"
+          >
+            <DownloadIcon className="w-4 h-4" />
+            Download report
+          </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

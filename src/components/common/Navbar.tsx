@@ -1,7 +1,6 @@
 import { useAlert, type AlertContextType } from "@/context/AlertContext";
 import { useAuth, type AuthContextType } from "@/context/AuthContext";
 import { useLoader, type LoaderContextType } from "@/context/LoaderContext";
-import { formatName } from "@/lib/formatName";
 import { AlertType, Role, type User } from "@/lib/types";
 import { AuthService } from "@/services/auth";
 import {
@@ -89,7 +88,7 @@ function Navbar() {
                             Signed in as
                           </p>
                           <p className="text-sm font-bold text-slate-900 truncate">
-                            {formatName(user.name)}
+                            {user.name}
                           </p>
                         </div>
                         <button

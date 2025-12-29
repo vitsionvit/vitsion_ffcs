@@ -21,10 +21,13 @@
     "dotenv": "^17.2.3",
     "firebase": "^12.6.0",
     "framer-motion": "^12.23.25",
+    "jspdf": "^3.0.4",
+    "jspdf-autotable": "^5.0.2",
     "lucide-react": "^0.555.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.9.6",
+    "react-to-print": "^3.2.0",
     "tailwind-merge": "^3.4.0",
     "xlsx": "^0.18.5"
   },
