@@ -6,7 +6,9 @@ import { motion } from "framer-motion";
 function RequestsComponent() {
   const [activeTab, setActiveTab] = useState("pending");
   const [isProofModalOpen, setisProofModalOpen] = useState(false);
-  const [selectedProofImage, setSelectedProofImage] = useState<string | null>(null);
+  const [selectedProofImage, setSelectedProofImage] = useState<string | null>(
+    null
+  );
 
   const tabs = [
     { id: "pending", label: "Pending Requests" },
@@ -26,7 +28,6 @@ function RequestsComponent() {
       />
       <div className="p-4 md:p-8 lg:p-12 min-h-screen bg-[#0a0a0a]">
         <div className="bg-[#121212] p-8 sm:p-10 rounded-[2.5rem] shadow-2xl border border-white/10">
-
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
             <div>
               <h2 className="text-3xl font-black text-white tracking-tight">
@@ -39,15 +40,16 @@ function RequestsComponent() {
           </div>
 
           {/* Tabs */}
-          <div className="bg-[#0a0a0a] p-1.5 rounded-xl inline-flex border border-white/10 shadow-inner mb-6">
+          <div className="bg-[#0a0a0a] p-1.5 rounded-xl flex border border-white/10 shadow-inner mb-6 overflow-x-auto max-w-full scrollbar-hide">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`relative px-6 py-2.5 rounded-lg text-sm font-bold transition-colors ${activeTab === tab.id
-                  ? "text-white"
-                  : "text-gray-500 hover:text-gray-300 hover:bg-white/5"
-                  }`}
+                className={`relative px-6 py-2.5 rounded-lg text-sm font-bold transition-colors ${
+                  activeTab === tab.id
+                    ? "text-white"
+                    : "text-gray-500 hover:text-gray-300 hover:bg-white/5"
+                }`}
               >
                 {activeTab === tab.id && (
                   <motion.div
