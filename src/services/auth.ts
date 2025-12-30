@@ -20,7 +20,6 @@ export class AuthService {
       const res = await signInWithEmailAndPassword(auth, email, password);
       return res.user;
     } catch (error) {
-      console.log((error as FirebaseError).code);
       throw "Invalid login credentials";
     }
   }

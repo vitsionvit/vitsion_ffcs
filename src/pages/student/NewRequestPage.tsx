@@ -1,13 +1,15 @@
-import {
-  useAlert,
-  type AlertContextType,
-} from "@/context/AlertContext";
+import { useAlert, type AlertContextType } from "@/context/AlertContext";
 import { useAuth, type AuthContextType } from "@/context/AuthContext";
 import { useLoader, type LoaderContextType } from "@/context/LoaderContext";
 import { WORK_TYPES } from "@/lib/constants";
 import { AlertType, type HourRequestInput } from "@/lib/types";
 import { RequestsService } from "@/services/requests";
-import { ArrowLeftIcon, UploadIcon, FileIcon, CheckCircleIcon } from "lucide-react";
+import {
+  ArrowLeftIcon,
+  UploadIcon,
+  FileIcon,
+  CheckCircleIcon,
+} from "lucide-react";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -39,8 +41,19 @@ const NewRequestForm = () => {
   };
 
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    setLoading(true, "Submitting request");
     event.preventDefault();
+    if (
+      !workName.trim() ||
+      !workSlab.trim() ||
+      !workType.trim() ||
+      !description.trim() ||
+      !date.trim() ||
+      !hours.trim()
+    ) {
+      return;
+    }
+
+    setLoading(true, "Submitting request");
     let file = null;
     if (fileInputRef.current && fileInputRef.current.files?.length) {
       file = fileInputRef.current.files[0];
@@ -154,14 +167,30 @@ const NewRequestForm = () => {
                     </option>
                     {Object.keys(WORK_TYPES).map((type, index) => {
                       return (
-                        <option key={index} value={type} className="bg-[#121212]">
+                        <option
+                          key={index}
+                          value={type}
+                          className="bg-[#121212]"
+                        >
                           {type}
                         </option>
                       );
                     })}
                   </select>
                   <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M19 9l-7 7-7-7"
+                      ></path>
+                    </svg>
                   </div>
                 </div>
               </div>
@@ -191,7 +220,19 @@ const NewRequestForm = () => {
                     ))}
                   </select>
                   <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M19 9l-7 7-7-7"
+                      ></path>
+                    </svg>
                   </div>
                 </div>
               </div>
@@ -260,8 +301,11 @@ const NewRequestForm = () => {
                 Proof of Work (Geotag photo)
               </label>
               <div
-                className={`mt-1 flex justify-center p-8 border-2 border-dashed rounded-xl transition-all duration-200 ${fileName ? "border-green-500/50 bg-green-500/10" : "border-white/10 hover:border-white/30 hover:bg-white/5"
-                  }`}
+                className={`mt-1 flex justify-center p-8 border-2 border-dashed rounded-xl transition-all duration-200 ${
+                  fileName
+                    ? "border-green-500/50 bg-green-500/10"
+                    : "border-white/10 hover:border-white/30 hover:bg-white/5"
+                }`}
               >
                 <div className="space-y-2 text-center">
                   {fileName ? (
@@ -269,12 +313,15 @@ const NewRequestForm = () => {
                       <div className="w-12 h-12 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mb-2">
                         <CheckCircleIcon className="w-6 h-6" />
                       </div>
-                      <p className="text-sm font-medium text-white">{fileName}</p>
+                      <p className="text-sm font-medium text-white">
+                        {fileName}
+                      </p>
                       <button
                         type="button"
                         onClick={() => {
                           setFileName("");
-                          if (fileInputRef.current) fileInputRef.current.value = "";
+                          if (fileInputRef.current)
+                            fileInputRef.current.value = "";
                         }}
                         className="text-xs text-red-400 hover:text-red-300 mt-1 font-medium transition-colors"
                       >

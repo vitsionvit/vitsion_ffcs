@@ -19,16 +19,13 @@ export class ImageService {
       if (error) throw error;
 
       // get public url
-      const { data } = supabase.storage
-        .from("requests")
-        .getPublicUrl(filePath);
+      const { data } = supabase.storage.from("requests").getPublicUrl(filePath);
 
       return {
         url: data.publicUrl,
         path: filePath,
       };
     } catch (error) {
-      console.log(error);
       throw "Could not upload image. Please try again later";
     }
   }

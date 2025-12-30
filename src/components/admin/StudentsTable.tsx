@@ -27,8 +27,6 @@ function StudentsTable({ students }: { students: Student[] }) {
   }, [query, students]);
 
   const handleDownloadReport = () => {
-    console.log("flag");
-
     generateCompleteReport(students);
   };
 

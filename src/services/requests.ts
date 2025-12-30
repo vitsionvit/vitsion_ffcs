@@ -82,7 +82,6 @@ export class RequestsService {
 
       return result;
     } catch (error) {
-      console.log(error);
       throw "Could not fetch hour requests";
     }
   }
@@ -167,7 +166,6 @@ export class RequestsService {
 
       return { success: true };
     } catch (error) {
-      console.log(error);
       throw "Could not update request status";
     }
   }
@@ -204,7 +202,6 @@ export class RequestsService {
 
       return { success: true };
     } catch (error) {
-      console.log(error);
       throw "Could not update approved request";
     }
   }
@@ -247,7 +244,6 @@ export class RequestsService {
 
       return { success: true };
     } catch (error) {
-      console.log(error);
       throw "Could not delete request";
     }
   }
